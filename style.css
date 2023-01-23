@@ -1,6 +1,22 @@
-
+*{
+    box-sizing: border-box;
+    padding:0;
+    margin:0;
+}
 body{
     text-align: center;
+}
+#btn{
+    display: none;
+    cursor: pointer;
+}
+#btn:hover{
+    background-color: rgb(69, 117, 117);
+}
+#taken{
+    display: none;
+    color:red;
+    font-size: 20px;
 }
 
 #chatbox{
@@ -10,9 +26,9 @@ body{
     padding:10px;
     height: 100vh;;
 }
-#userlist{
+/* #userlist{
     width:30%;
-}
+} */
 #chats{
     width:70%;
 }
@@ -21,7 +37,6 @@ body{
     height: 300px;
     border: 1px solid black;
     border-radius: 5px;
-    max-width: 400px;
     margin:auto;
     padding:20px;
     overflow: scroll;
@@ -31,6 +46,7 @@ body{
 }
 input{
     padding:10px;
+    width:40%;
 }
 .form{
     font-size: 25px;
@@ -60,4 +76,39 @@ button{
     border-radius: 5px;
     display: inline-block;
     background: darkorange;
+}
+
+.names{
+    background-color: rgb(53, 90, 90);
+    color:white;
+    padding:15px 30px;
+    border-radius: 20px;
+    width:auto;
+    margin-bottom: 5px;
+}
+
+
+
+
+
+@media only screen and (max-width:500px){
+    .userlist{
+        position:absolute;
+        background:rgb(183, 226, 236);
+        width:auto;
+        margin-left: -100%;
+        transition: all ease 0.3s;
+        min-height: 50vh;
+        padding: 0 45px;
+        border-radius: 25px;
+    }
+    .reveal{
+        margin-left: 0;
+    }
+    #chats{
+        width:100%;
+    }
+    #btn{
+        display: block;
+    }
 }

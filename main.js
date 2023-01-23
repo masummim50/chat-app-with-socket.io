@@ -1,8 +1,8 @@
 
 var socket = io();
 
-
-
+const btn = document.getElementById('btn');
+const usercontainer = document.getElementById('userlist');
 const container = document.getElementById('message-container');
 const message = document.getElementById('message-input');
 const room = document.getElementById('room-input');
@@ -10,8 +10,15 @@ const sendButton = document.getElementById('send-button');
 const roomButton = document.getElementById("room-button");
 const username = document.getElementById("username");
 const chatbox = document.getElementById("chatbox")
+const taken = document.getElementById('taken');
+
+
 username.focus();
 // message.focus();
+
+btn.addEventListener('click', ()=> {
+    usercontainer.classList.toggle('reveal');
+})
 
 // this tries to set a username
 username.addEventListener("keypress", (e)=> {
@@ -28,7 +35,10 @@ socket.on('saved', d=> {
 })
 
 socket.on('failed', ()=> {
-    console.log('user name taken');
+        taken.style.display = 'block';
+    setTimeout(() => {
+    taken.style.display = 'none';
+    }, 1000);
 })
 
 const dropmessage =()=> {
@@ -83,3 +93,34 @@ const displayMessage = (message)=> {
     container.append(div);
     container.scrollTop = container.scrollHeight;
 }
+
+socket.on('adduser', name=> {
+    const div = document.createElement('div');
+    div.innerText = name;
+    div.classList.add("names")
+    usercontainer.append(div);
+})
+
+socket.on('loadusers', names=> {
+    const u = "<div>All Connected users:</div>";
+    usercontainer.innerHTML = u;
+    Object.keys(names).forEach(n=> {
+        const div = document.createElement('div');
+        div.classList.add("names")
+        div.innerText = n;
+        usercontainer.append(div);
+    })
+})
+
+socket.on('reloadusers', names=> {
+    usercontainer.innerHTML = "";
+    
+    const u = "<div>All Connected users:</div>";
+    usercontainer.innerHTML = u;
+    Object.keys(names).forEach(n=> {
+        const div = document.createElement('div');
+        div.classList.add("names")
+        div.innerText = n;
+        usercontainer.append(div);
+    })
+})

@@ -17,6 +17,7 @@ app.get("/", (req, res)=> {
 
 io.on('connection', (socket)=> {
     // console.log(socket.id)
+    socket.emit('loadusers', names);
     socket.on('sendtext', (msg)=> {
         // console.log(msg)
         msg.sender = users[socket.id];
@@ -32,6 +33,8 @@ io.on('connection', (socket)=> {
             names[name] = name;
             const data = users;
             socket.emit('saved', data)
+            io.emit('adduser', name);
+            names[name] = name;
         }
 
     })
@@ -41,6 +44,7 @@ io.on('connection', (socket)=> {
         delete users[socket.id];
         delete users[name];
         delete names[name];
+        io.emit('reloadusers', names);
     })
 })
 
